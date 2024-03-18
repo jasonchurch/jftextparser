@@ -1,11 +1,10 @@
 package ca.edeveloper.jayfinance.utility;
 
+import ca.edeveloper.jayfinance.utility.jftextparser.FieldTextParserConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class FieldTextParserConfigTest {
 

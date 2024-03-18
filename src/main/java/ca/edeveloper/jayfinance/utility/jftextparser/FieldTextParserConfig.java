@@ -1,4 +1,4 @@
-package ca.edeveloper.jayfinance.utility;
+package ca.edeveloper.jayfinance.utility.jftextparser;
 
 import org.yaml.snakeyaml.Yaml;
 import java.io.InputStream;
