@@ -1,0 +1,13 @@
+For:
+  beld1:
+    matchingPatterns: "^\\d{3}-\\d{2}-\\d{4}$"
+    required_flag: true
+    description: "This is a description for field1. For example, it could be a social security number."
+  fdeld2:
+    matchingPatterns: "^[a-zA-Z]+$"
+    required_flag: false
+    description: "This is a description for field2. It should only contain alphabetic characters."
+  fiald3:
+    matchingPatterns: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+    required_flag: true
+    description: "This is a description for field3. It's a pattern for validating email addresses."

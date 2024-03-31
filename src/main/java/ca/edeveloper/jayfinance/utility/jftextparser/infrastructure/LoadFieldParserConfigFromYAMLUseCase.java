@@ -5,6 +5,7 @@ import ca.edeveloper.jayfinance.utility.jftextparser.domain.FieldParserConfig;
 import ca.edeveloper.jayfinance.utility.jftextparser.usecases.LoadFieldParserConfigUseCase;
 
 
+import ca.edeveloper.jayfinance.utility.jftextparser.usecases.ParserConfigException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
@@ -22,33 +23,14 @@ public class LoadFieldParserConfigFromYAMLUseCase implements LoadFieldParserConf
     }
 
     @Override
-    public FieldParserConfig execute() {
+    public FieldParserConfig execute() throws ParserConfigException {
         try {
             FieldTextParserConfig fieldTextParserConfig = readConfig(fileName);
             return convertToFieldParserConfig(fieldTextParserConfig);
         } catch(IOException e) {
-            throw new RuntimeException(e);
+            throw new ParserConfigException("", e);
         }
     }
-
-//    private FieldParserConfig readConfig(String path) throws IOException {
-//        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-//        File file = new File(path);
-//        FieldParserConfig config;
-//
-//        if(file.exists() && !file.isDirectory()) {
-//            // If the file exists on the filesystem, read it directly
-//            config = mapper.readValue(file, FieldParserConfig.class);
-//        } else {
-//            // If the file doesn't exist on the filesystem, try loading it from the classpath
-//            InputStream is = getClass().getClassLoader().getResourceAsStream(path);
-//            if(is == null) {
-//                throw new IOException("Configuration file not found on filesystem or classpath: " + path);
-//            }
-//            config = mapper.readValue(is, FieldParserConfig.class);
-//        }
-//        return config;
-//    }
 
     private FieldTextParserConfig readConfig(String path) throws IOException {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
