@@ -4,5 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FieldParserResults {
-    Map<String,FieldMatcherItemResult> fieldMatcherItemResultsMap = new HashMap<>();
+    public Map<String, FieldMatcherItemResult> getFieldMatcherItemResultsMap() {
+        return fieldMatcherItemResultsMap;
+    }
+
+     Map<String,FieldMatcherItemResult> fieldMatcherItemResultsMap = new HashMap<>();
 }

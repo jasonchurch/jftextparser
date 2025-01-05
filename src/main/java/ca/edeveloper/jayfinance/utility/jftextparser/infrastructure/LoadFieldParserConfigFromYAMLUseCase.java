@@ -18,7 +18,7 @@ public class LoadFieldParserConfigFromYAMLUseCase implements LoadFieldParserConf
 
     private final String fileName;
 
-    LoadFieldParserConfigFromYAMLUseCase(String filename) {
+    public LoadFieldParserConfigFromYAMLUseCase(String filename) {
         this.fileName = filename;
     }
 

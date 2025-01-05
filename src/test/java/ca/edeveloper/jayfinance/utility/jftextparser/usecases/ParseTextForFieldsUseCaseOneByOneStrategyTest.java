@@ -1,14 +1,15 @@
 package ca.edeveloper.jayfinance.utility.jftextparser.usecases;
 
+import ca.edeveloper.jayfinance.utility.jftextparser.SimpleClasspathFileReader;
 import ca.edeveloper.jayfinance.utility.jftextparser.domain.FieldParserConfig;
 import ca.edeveloper.jayfinance.utility.jftextparser.infrastructure.LoadFieldParserConfigFromYAMLUseCase;
 import org.junit.jupiter.api.Test;
 
-class ParseTextForFieldsUseCaseTest {
+class ParseTextForFieldsUseCaseOneByOneStrategyTest {
 
     @Test
     void testHappyPathUseCase () {
-        String content = "testing123\ntesting123";
+        String content = SimpleClasspathFileReader.readFileFromClasspath("contentToParseFakeConfirm.txt");
         FieldParserConfig config;
         LoadFieldParserConfigFromYAMLUseCase loadFieldParserConfigFromYAMLUseCase = new LoadFieldParserConfigFromYAMLUseCase("FieldTextParserConfigText1.yaml");
         try {
@@ -16,7 +17,7 @@ class ParseTextForFieldsUseCaseTest {
         } catch (ParserConfigException e) {
             throw new RuntimeException(e);
         }
-        ParseTextForFieldsOneByOneStrategyUseCase useCase = new ParseTextForFieldsOneByOneStrategyUseCase(content, config);
+        ParseTextForFieldsUseCase useCase = new ParseTextForFieldsOneByOneStrategyUseCase(content, config);
 
         useCase.parse();
     }

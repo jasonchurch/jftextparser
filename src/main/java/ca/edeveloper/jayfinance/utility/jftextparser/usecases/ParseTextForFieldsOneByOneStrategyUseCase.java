@@ -1,4 +1,3 @@
-
 package ca.edeveloper.jayfinance.utility.jftextparser.usecases;
 
 import ca.edeveloper.jayfinance.utility.jftextparser.domain.FieldMatcherItem;
@@ -7,8 +6,15 @@ import ca.edeveloper.jayfinance.utility.jftextparser.domain.FieldParserConfig;
 import ca.edeveloper.jayfinance.utility.jftextparser.domain.FieldParserResults;
 
 import java.util.AbstractMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.List;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -23,41 +29,68 @@ import java.util.logging.Logger;
  *   - create fieldMatcherItemResult with find match as field,
  * - Return FieldParserResults containing all matches
  */
-public class ParseTextForFieldsUseCase {
+public class ParseTextForFieldsOneByOneStrategyUseCase implements ParseTextForFieldsUseCase {
     protected String contentToParse;
     protected FieldParserConfig parserConfig;
-        private static final Logger LOGGER = Logger.getLogger(ParseTextForFieldsUseCase.class.getName());
+        private static final Logger LOGGER = Logger.getLogger(ParseTextForFieldsOneByOneStrategyUseCase.class.getName());
 
-    public ParseTextForFieldsUseCase(String content, FieldParserConfig config) {
+    public ParseTextForFieldsOneByOneStrategyUseCase(String content, FieldParserConfig config) {
         this.contentToParse = content;
         this.parserConfig = config;
     }
     
+    @Override
     public FieldParserResults parse() {
+        validation();
+        return processFieldsMatchers(parserConfig.getFieldMatcherItemMap(), contentToParse);
+    }
+
+    void validation() {
         if (contentToParse == null || contentToParse.isEmpty()) {
             throw new IllegalArgumentException("Content to parse cannot be null or empty");
         }
         if (parserConfig == null) {
             throw new IllegalStateException("Parser configuration must be loaded before parsing");
         }
-        if (parserConfig.getFieldMatcherItemMap().size() == 0) {
+        if (parserConfig.getFieldMatcherItemMap().isEmpty()) {
             throw new IllegalStateException("Parser configuration must have at least one fieldMatcher");
         }
-        
+
+    }
+
+
+    
+    public FieldParserResults processFieldsMatchers(Map<String, FieldMatcherItem> fieldMatcherItemMap, String contentToParse) {
+        FieldParserResults results = new FieldParserResults();
         try {
-            FieldParserResults results = new FieldParserResults();
-            parserConfig.getFieldMatcherItemMap().entrySet().stream()
-                    .forEach(config ->  new AbstractMap.SimpleEntry<String, FieldMatcherItemResult>(config.getKey(), findMatches(config.getValue(), this.contentToParse))
-                    );
+            Map<String, FieldMatcherItemResult> resultsMap = fieldMatcherItemMap.entrySet().stream()
+                    .collect(Collectors.toMap(
+                            Map.Entry::getKey,
+                            entry -> findField(entry.getValue(), contentToParse)
+                    ));
+            results.getFieldMatcherItemResultsMap().putAll(resultsMap);
             return results;
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error parsing text", e);
             throw new RuntimeException("Failed to parse text", e);
         }
     }
-    // Additional methods if necessary for parsing
-
-    FieldMatcherItemResult findMatches(FieldMatcherItem item, String content) {
-        return new FieldMatcherItemResult();
+    
+    FieldMatcherItemResult findField(FieldMatcherItem item, String content) {
+        FieldMatcherItemResult result = new FieldMatcherItemResult();
+        try {
+            Pattern pattern = Pattern.compile(item.getMatchingPattern());
+            Matcher matcher = pattern.matcher(content);
+            if (matcher.find()) {
+                result.setField(List.of(matcher.group()));
+                result.setFound(true);
+            } else {
+                result.setFound(false);
+            }
+        } catch (Exception e) {
+            result.setHasError(true);
+            result.setErrorMessage(e.getMessage());
+        }
+        return result;
     }
 }

@@ -1,0 +1,13 @@
+{
+    "java.format.settings.url": ".vscode/java-formatter.xml",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-21",
+            "path": "/usr/lib/jvm/java-21-openjdk",
+            "sources" : "/usr/lib/jvm/java-21-openjdk/lib/src.zip",
+            "javadoc" : "usr/share/doc/java21-openjdk/api",
+            "default":  true
+        }
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
+}
