@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: ca.edeveloper.jayfinance.utility.jftextparser.usecases.ParseTextForFieldsUseCaseOneByOneStrategyTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.425 s -- in ca.edeveloper.jayfinance.utility.jftextparser.usecases.ParseTextForFieldsUseCaseOneByOneStrategyTest
