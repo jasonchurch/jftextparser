@@ -6,6 +6,7 @@ import ca.edeveloper.jayfinance.utility.jftextparser.domain.FieldParserConfig;
 import ca.edeveloper.jayfinance.utility.jftextparser.domain.FieldParserResults;
 
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -78,14 +79,23 @@ public class ParseTextForFieldsOneByOneStrategyUseCase implements ParseTextForFi
     
     FieldMatcherItemResult findField(FieldMatcherItem item, String content) {
         FieldMatcherItemResult result = new FieldMatcherItemResult();
+        result.setRequired(item.isRequired()); // Set the isRequired field
         try {
             Pattern pattern = Pattern.compile(item.getMatchingPattern());
             Matcher matcher = pattern.matcher(content);
             if (matcher.find()) {
-                result.setField(List.of(matcher.group()));
+                List<String> groups = new ArrayList<>();
+                for (int i = 1; i <= matcher.groupCount(); i++) {
+                    groups.add(matcher.group(i));
+                }
+                result.setField(groups);
                 result.setFound(true);
             } else {
                 result.setFound(false);
+                if (item.isRequired()) {
+                    result.setHasError(true);
+                    result.setErrorMessage("Required field not found: " + item.getMatchingPattern());
+                }
             }
         } catch (Exception e) {
             result.setHasError(true);

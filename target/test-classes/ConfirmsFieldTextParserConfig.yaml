@@ -1,0 +1,53 @@
+fields:
+  processed_date:
+    matchingPatterns: "Processed on: ([A-Za-z]+ \\d{1,2}, \\d{4})"
+    required_flag: true
+    description: "Processed Date, e.g., Processed on: January 24, 2022."
+  transaction_type:
+    matchingPatterns: "You (bought|sold)"
+    required_flag: true
+    description: "Transaction Type, e.g., You sold."
+  # security_description:
+  #   matchingPatterns: "^AIR CANADA VTG & VAR VTG$"
+  #   required_flag: false
+  #   description: "Security Description, e.g., AIR CANADA VTG & VAR VTG."
+  # security_number:
+  #   matchingPatterns: "^FG-\\d{6}$"
+  #   required_flag: false
+  #   description: "Security Number, e.g., FG-487650."
+  # ticker_symbol:
+  #   matchingPatterns: "^Ticker symbol: [A-Z]+$"
+  #   required_flag: false
+  #   description: "Ticker Symbol, e.g., Ticker symbol: AC."
+  # security_number:
+  #   matchingPatterns: "^Security number: \\d{6}$"
+  #   required_flag: false
+  #   description: "Security Number, e.g., Security number: 00718A."
+  # cusip_id:
+  #   matchingPatterns: "^CUSIP ID: \\d{9}$"
+  #   required_flag: false
+  #   description: "CUSIP ID, e.g., CUSIP ID: 008911877."
+  # trade_number:
+  #   matchingPatterns: "^Trade number: \\d{6}$"
+  #   required_flag: true
+  #   description: "Trade Number, e.g., Trade number: 000804."
+  # trade_processed_by:
+  #   matchingPatterns: "^Trade processed by: [A-Z0-9]+$"
+  #   required_flag: true
+  #   description: "Trade processed by, e.g., Trade processed by: 9EON."
+  # quantity:
+  #   matchingPatterns: "^Quantity\\n\\d+$"
+  #   required_flag: true
+  #   description: "Quantity, e.g., Quantity 30."
+  # price:
+  #   matchingPatterns: "^Price \\(\\$\\)\\n\\d+\\.\\d{2}$"
+  #   required_flag: true
+  #   description: "Price, e.g., Price ($) 20.87."
+  # gross_transaction_amount:
+  #   matchingPatterns: "^Gross transaction amount\\nCAD \\d+\\.\\d{2}$"
+  #   required_flag: true
+  #   description: "Gross transaction amount, e.g., Gross transaction amount CAD 626.10."
+  # net_transaction_amount:
+  #   matchingPatterns: "^Net transaction amount\\nCAD \\$\\d+\\.\\d{2}$"
+  #   required_flag: true
+  #   description: "Net transaction amount, e.g., Net transaction amount CAD $626.10." 

@@ -28,7 +28,7 @@ public class LoadFieldParserConfigFromYAMLUseCase implements LoadFieldParserConf
             FieldTextParserConfig fieldTextParserConfig = readConfig(fileName);
             return convertToFieldParserConfig(fieldTextParserConfig);
         } catch(IOException e) {
-            throw new ParserConfigException("", e);
+            throw new ParserConfigException(e.getMessage(), e);
         }
     }
 

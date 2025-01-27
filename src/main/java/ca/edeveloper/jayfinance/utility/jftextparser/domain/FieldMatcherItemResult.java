@@ -10,6 +10,7 @@ public class FieldMatcherItemResult {
     private boolean isFound; // Indicates if the field was found
     private boolean hasError; // Indicates if there was an error during matching
     private String errorMessage; // The error message if an error occurred
+    private boolean isRequired; // Indicates if the field is required
 
     /**
      * Default constructor.
@@ -24,12 +25,14 @@ public class FieldMatcherItemResult {
      * @param isFound Indicates if the field was found
      * @param hasError Indicates if there was an error during matching
      * @param errorMessage The error message if an error occurred
+     * @param isRequired Indicates if the field is required
      */
-    public FieldMatcherItemResult(List<String> field, boolean isFound, boolean hasError, String errorMessage) {
+    public FieldMatcherItemResult(List<String> field, boolean isFound, boolean hasError, String errorMessage, boolean isRequired) {
         this.field = field;
         this.isFound = isFound;
         this.hasError = hasError;
         this.errorMessage = errorMessage;
+        this.isRequired = isRequired;
     }
 
     /**
@@ -102,5 +105,35 @@ public class FieldMatcherItemResult {
      */
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    /**
+     * Checks if the field is required.
+     *
+     * @return true if the field is required, false otherwise
+     */
+    public boolean isRequired() {
+        return isRequired;
+    }
+
+    /**
+     * Sets whether the field is required.
+     *
+     * @param isRequired true if the field is required, false otherwise
+     */
+    public void setRequired(boolean isRequired) {
+        this.isRequired = isRequired;
+    }
+    
+    //a toString method
+    @Override
+    public String toString() {
+        return "FieldMatcherItemResult{" +
+                "field=" + field +
+                ", isFound=" + isFound +
+                ", hasError=" + hasError +
+                ", errorMessage='" + errorMessage + '\'' +
+                ", isRequired=" + isRequired +
+                '}';
     }
 }
